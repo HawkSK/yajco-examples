@@ -7,7 +7,6 @@ import org.junit.Test;
 import yajco.example.extMathExpr.model.Expression;
 import yajco.example.extMathExpr.model.printer.Printer;
 import yajco.example.extMathExpr.parser.ExpressionParser;
-import yajco.example.extMathExpr.parser.ParseException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -16,6 +15,7 @@ import java.io.PrintWriter;
 import static org.hamcrest.core.StringContains.containsString;
 
 public class IntegrationTest {
+	private static final String NL = System.lineSeparator();
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
 	@Before
@@ -31,38 +31,38 @@ public class IntegrationTest {
 	@Test
 	public void simpleExampleTest() throws Exception {
 		Assert.assertEquals(-56, getResult("2 ^ 3 * -7"));
-		Assert.assertEquals("((( 2) \\^( 3)) \\*( -( 7)))\n", outContent.toString());
+		Assert.assertEquals("((( 2) \\^( 3)) \\*( -( 7)))" + NL, outContent.toString());
 	}
 
 	@Test
 	public void complexExampleTest() throws Exception {
 		Assert.assertEquals(174, getResult("3^2 + (54/2)^2 - 6*5^2 + 4! * (2+ 3!*2)"));
 		Assert.assertThat(outContent.toString(), containsString("((((( 3) \\^( 2)) \\+((( 54) " +
-				"/( 2)) \\^( 2))) -((( 6) \\*( 5)) \\^( 2))) \\+((( 4) !) \\*(( 2) \\+((( 3) !) \\*( 2)))))\n"));
+				"/( 2)) \\^( 2))) -((( 6) \\*( 5)) \\^( 2))) \\+((( 4) !) \\*(( 2) \\+((( 3) !) \\*( 2)))))" + NL));
 	}
 
 	@Test
 	public void factorialTest() throws Exception {
 		Assert.assertEquals(120, getResult("5!"));
-		Assert.assertThat(outContent.toString(), containsString("(( 5) !)\n"));
+		Assert.assertThat(outContent.toString(), containsString("(( 5) !)" + NL));
 	}
 
 	@Test
 	public void oppositeNumbersMultiplicationTest() throws Exception {
 		Assert.assertEquals(-25, getResult("-5 * 5"));
-		Assert.assertThat(outContent.toString(), containsString("(( -( 5)) \\*( 5))\n"));
+		Assert.assertThat(outContent.toString(), containsString("(( -( 5)) \\*( 5))" + NL));
 	}
 
 	@Test
 	public void negativeNumbersMultiplicationTest() throws Exception {
 		Assert.assertEquals(25, getResult("-5 * -5"));
-		Assert.assertThat(outContent.toString(), containsString("(( -( 5)) \\*( -( 5)))\n"));
+		Assert.assertThat(outContent.toString(), containsString("(( -( 5)) \\*( -( 5)))" + NL));
 	}
 
 	@Test
 	public void doubleMinusTest() throws Exception {
 		Assert.assertEquals(5, getResult("--5"));
-		Assert.assertThat(outContent.toString(), containsString("( -( -( 5)))\n"));
+		Assert.assertThat(outContent.toString(), containsString("( -( -( 5)))" + NL));
 	}
 
 	private long getResult(String input) throws Exception {
