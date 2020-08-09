@@ -4,6 +4,9 @@ import yajco.annotation.After;
 import yajco.annotation.Before;
 import yajco.example.imperative.model.expression.Expression;
 
+import java.util.Optional;
+
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class Condition implements Statement {
     private final Expression expression;
     
@@ -11,30 +14,23 @@ public class Condition implements Statement {
     
     private final Statement falseStatement;
 
+    // TODO resolve shift-reduce conflict caused by dangling ELSE
     public Condition(
             @Before({"IF", "LPAR"}) @After("RPAR") Expression expression, 
             Statement trueStatement, 
-            @Before("ELSE") Statement falseStatement) {
+            @Before("ELSE") Optional<Statement> falseStatement) {
         this.expression = expression;
         this.trueStatement = trueStatement;
-        this.falseStatement = falseStatement;
-    }
-
-    public Condition(
-            @Before({"IF", "LPAR"}) @After("RPAR") Expression expression,
-            Statement trueStatement) {
-        this.expression = expression;
-        this.trueStatement = trueStatement;
-        this.falseStatement = null;
+        this.falseStatement = falseStatement.orElse(null);
     }
 
     @Override
     public void execute() {
         if(getExpression().eval() != 0) {
             getTrueStatement().execute();
-        } else if(getFalseStatement() != null) {
-            getFalseStatement().execute();
-        }     
+        } else {
+            getFalseStatement().ifPresent(Statement::execute);
+        }
     }
 
     /**
@@ -54,7 +50,7 @@ public class Condition implements Statement {
     /**
      * @return the falseStatement
      */
-    public Statement getFalseStatement() {
-        return falseStatement;
+    public Optional<Statement> getFalseStatement() {
+        return Optional.ofNullable(falseStatement);
     }
 }
