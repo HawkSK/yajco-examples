@@ -1,23 +1,27 @@
 package yajco.robot.karel.model.statement;
 
+import yajco.annotation.After;
 import yajco.annotation.Before;
-import yajco.annotation.Optional;
 import yajco.robot.karel.runtime.World;
 import yajco.robot.karel.model.Condition;
 import yajco.robot.karel.model.Statement;
 
+import java.util.Optional;
+
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class Conditional extends Statement {
     private final Condition condition;
 
     private final Statement statement;
 
-    private final Statement elseStatement;
+    private final Optional<Statement> elseStatement;
 
     @Before("IF")
+    @After("ENDIF")
     public Conditional(
             Condition condition,
             @Before("THEN") Statement statement,
-            @Optional @Before("ELSE") Statement elseStatement) {
+            @Before("ELSE") Optional<Statement> elseStatement) {
         this.condition = condition;
         this.statement = statement;
         this.elseStatement = elseStatement;
@@ -27,8 +31,8 @@ public class Conditional extends Statement {
     public void execute(World world) {
         if (condition.eval(world)) {
             statement.execute(world);
-        } else if (elseStatement != null) {
-            elseStatement.execute(world);
+        } else {
+            elseStatement.ifPresent(elseStmt -> elseStmt.execute(world));
         }
     }
 }
