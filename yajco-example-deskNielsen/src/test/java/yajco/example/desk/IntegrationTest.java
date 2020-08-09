@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 
 public class IntegrationTest {
 
+	private static final String NL = System.lineSeparator();
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
 	@Before
@@ -43,7 +44,7 @@ public class IntegrationTest {
 	public void simpleExamplePrinterOutputTest() throws Exception {
 		String input = "print x + y + 3 + 2 where x = 1, y = 2";
 		getPrinterOutput(input);
-		Assert.assertEquals("print(((( x) +( y)) +( 3)) +( 2)) where x = 1, y = 2\n", outContent.toString());
+		Assert.assertEquals("print(((( x) +( y)) +( 3)) +( 2)) where x = 1, y = 2" + NL, outContent.toString());
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class IntegrationTest {
 	public void complexExamplePrinterOutputTest() throws Exception {
 		String input = "print x + 15 + y + 25 + z where x = 18, y = 32, z = 34";
 		getPrinterOutput(input);
-		Assert.assertEquals("print((((( x) +( 15)) +( y)) +( 25)) +( z)) where x = 18, y = 32, z = 34\n", outContent.toString());
+		Assert.assertEquals("print((((( x) +( 15)) +( y)) +( 25)) +( z)) where x = 18, y = 32, z = 34" + NL, outContent.toString());
 	}
 
 	private String getProgramCode(String input) throws Exception {

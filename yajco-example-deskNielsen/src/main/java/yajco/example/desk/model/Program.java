@@ -4,10 +4,13 @@ import yajco.annotation.Before;
 import yajco.annotation.Range;
 import yajco.annotation.Separator;
 
+import java.util.Optional;
+
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class Program {
     private final Expression expression;
 
-    private final Constant[] constants;
+    private final Optional<Constant[]> constants;
 
     public Program(
             @Before("print")
@@ -15,16 +18,9 @@ public class Program {
             @Before("where")
             @Range(minOccurs = 1)
             @Separator(",")
-                    Constant[] constants) {
+                    Optional<Constant[]> constants) {
         this.expression = expression;
         this.constants = constants;
-    }
-    
-    public Program(
-            @Before("print")
-                    Expression expression) {
-        this.expression = expression;
-        this.constants = null;
     }
 
     public String code() {
@@ -41,7 +37,7 @@ public class Program {
     /**
      * @return the constants
      */
-    public Constant[] getConstants() {
+    public Optional<Constant[]> getConstants() {
         return constants;
     }
 }
