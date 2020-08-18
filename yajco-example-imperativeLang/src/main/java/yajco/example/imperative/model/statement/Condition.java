@@ -14,7 +14,6 @@ public class Condition implements Statement {
     
     private final Statement falseStatement;
 
-    // TODO resolve shift-reduce conflict caused by dangling ELSE
     public Condition(
             @Before({"IF", "LPAR"}) @After("RPAR") Expression expression, 
             Statement trueStatement, 

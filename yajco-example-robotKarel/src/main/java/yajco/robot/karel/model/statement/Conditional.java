@@ -17,7 +17,6 @@ public class Conditional extends Statement {
     private final Optional<Statement> elseStatement;
 
     @Before("IF")
-    @After("ENDIF")
     public Conditional(
             Condition condition,
             @Before("THEN") Statement statement,
