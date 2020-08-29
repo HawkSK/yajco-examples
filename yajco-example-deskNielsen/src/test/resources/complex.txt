@@ -1,0 +1,1 @@
+print x + 15 + y + 25 + z where x = 18, y = 32, z = 34
