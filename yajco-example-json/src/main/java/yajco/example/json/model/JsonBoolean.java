@@ -6,7 +6,7 @@ public class JsonBoolean extends JsonValue {
 
     private boolean value;
 
-    public JsonBoolean(@Token("BOOLEAN") boolean value){
+    public JsonBoolean(@Token("BOOL") boolean value){
         this.value = value;
     }
 

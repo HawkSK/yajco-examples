@@ -6,19 +6,18 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class JsonNumber extends JsonValue {
+    private float value;
 
-    private double value;
-
-    public JsonNumber(@Token("NUMBER") String value){
-        this.value = Double.parseDouble(value);
+    public JsonNumber(@Token("NUMBER") float value){
+        this.value = value;
     }
 
     @Override
-    public Double getValue() {
+    public Float getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(float value) {
         this.value = value;
     }
 

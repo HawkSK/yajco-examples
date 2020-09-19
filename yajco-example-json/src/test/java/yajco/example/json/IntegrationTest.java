@@ -14,7 +14,7 @@ public class IntegrationTest {
 		JsonObject createdObject = createSimpleJsonObject();
 		JsonObject parsedObject = getParsedJsonObject("/simple_input.json");
 
-		Assert.assertTrue(createdObject.equals(parsedObject));
+		Assert.assertEquals(createdObject, parsedObject);
 	}
 
 	@Test
@@ -22,7 +22,7 @@ public class IntegrationTest {
 		JsonObject createdObject = createComplexJsonObject();
 		JsonObject parsedObject = getParsedJsonObject("/complex_input.json");
 
-		Assert.assertTrue(createdObject.equals(parsedObject));
+		Assert.assertEquals(createdObject, parsedObject);
 	}
 
 	private JsonObject getParsedJsonObject(String input) throws ParseException {
@@ -66,11 +66,11 @@ public class IntegrationTest {
 		}
 
 		List<Member> members = new ArrayList<>();
-		members.add(new Member(new JsonString("id"), new JsonNumber(id)));
+		members.add(new Member(new JsonString("id"), new JsonNumber(Float.parseFloat(id))));
 		members.add(new Member(new JsonString("gender"), new JsonString(gender)));
 		members.add(new Member(new JsonString("name"), new JsonString(name)));
 		members.add(new Member(new JsonString("active"), new JsonBoolean(active)));
-		members.add(new Member(new JsonString("age"), new JsonNumber(age)));
+		members.add(new Member(new JsonString("age"), new JsonNumber(Float.parseFloat(age))));
 		members.add(new Member(new JsonString("hobbies"), new JsonArray(hobbiesList)));
 
 		return new JsonObject(members);

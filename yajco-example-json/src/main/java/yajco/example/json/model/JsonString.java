@@ -9,6 +9,7 @@ public class JsonString extends JsonValue {
         this.value = value;
     }
 
+    @Override
     public String getValue() {
         return value;
     }

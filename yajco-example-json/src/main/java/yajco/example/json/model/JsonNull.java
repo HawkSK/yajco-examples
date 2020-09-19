@@ -4,7 +4,7 @@ import yajco.annotation.Before;
 
 public class JsonNull extends JsonValue {
 
-    @Before("NULL")
+    @Before("null")
     public JsonNull(){
     }
 

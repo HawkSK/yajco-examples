@@ -5,7 +5,8 @@ import yajco.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class JsonObject extends JsonValue {
     private List<Member> members;
@@ -35,9 +36,8 @@ public class JsonObject extends JsonValue {
 
     @Override
     public String toString() {
-        List<String> members = this.members.stream()
+        return this.members.stream()
                 .map(Member::toString)
-                .collect(Collectors.toList());
-        return "{" + String.join(", ", members) + "}";
+                .collect(joining(", ", "{", "}"));
     }
 }
