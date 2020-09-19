@@ -9,8 +9,8 @@ public class JsonArray extends JsonValue {
 
     @Before("[")
     @After("]")
-    public JsonArray(@Separator(",") List<JsonValue> elements) {
-        this.value = elements;
+    public JsonArray(@Separator(",") List<JsonValue> value) {
+        this.value = value;
     }
 
     @Override

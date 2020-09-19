@@ -9,10 +9,11 @@ public class JsonNumber extends JsonValue {
 
     private double value;
 
-    public JsonNumber(@Token("NUMBER") String number){
-        this.value = Double.parseDouble(number);
+    public JsonNumber(@Token("NUMBER") String value){
+        this.value = Double.parseDouble(value);
     }
 
+    @Override
     public Double getValue() {
         return value;
     }

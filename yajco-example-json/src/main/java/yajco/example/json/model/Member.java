@@ -7,9 +7,9 @@ public class Member {
     private JsonString name;
     private JsonValue value;
 
-    public Member(JsonString string,
+    public Member(JsonString name,
                   @Before(":") JsonValue value) {
-        this.name = string;
+        this.name = name;
         this.value = value;
     }
 
